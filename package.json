@@ -1,0 +1,17 @@
+{
+  "name": "wedding-invitation",
+  "version": "1.0.0",
+  "description": "2025届物理与电子工程学院迎新晚会电子邀请函",
+  "scripts": {
+    "build": "echo 'No build step for static site'",
+    "dev": "echo 'Static site - no dev server needed'"
+  },
+  "keywords": [
+    "invitation",
+    "wedding",
+    "h5"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+
