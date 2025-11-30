@@ -1,0 +1,19 @@
+{
+  "name": "welcome-party-invitation",
+  "version": "1.0.0",
+  "description": "物理与电子工程学院2025级新生迎新晚会暨表彰大会电子邀请函",
+  "scripts": {
+    "build": "echo 'No build step for static site'",
+    "dev": "echo 'Static site - no dev server needed'"
+  },
+  "keywords": [
+    "invitation",
+    "welcome-party",
+    "h5",
+    "spa",
+    "迎新晚会"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+

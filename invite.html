@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <title>物理与电子工程学院2025级新生迎新晚会暨表彰大会邀请函</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-invite">
+    <div id="snow"></div>
+    
+    <audio id="bgmAudio" loop preload="auto">
+        <source src="./public/bgm.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // 在audio标签后立即执行，不等待其他脚本
+        (function() {
+            var activated = sessionStorage.getItem('musicActivated') === 'true';
+            if (activated) {
+                var audio = document.getElementById('bgmAudio');
+                if (audio) {
+                    audio.volume = 0.6;
+                    
+                    // 检查是否有从第一页传递过来的音频对象
+                    if (window.backgroundMusic && !window.backgroundMusic.paused) {
+                        // 第一页的音频正在播放，尝试同步第二页的音频
+                        audio.currentTime = window.backgroundMusic.currentTime;
+                        audio.play().catch(function() {});
+                    } else {
+                        // 持续强制尝试播放（每10ms一次，持续30秒）
+                        var attempts = 0;
+                        var maxAttempts = 3000; // 30秒 = 3000次 * 10ms
+                        var tryInterval = setInterval(function() {
+                            attempts++;
+                            if (audio.paused && attempts < maxAttempts) {
+                                audio.play().catch(function() {});
+                            } else if (!audio.paused) {
+                                // 播放成功，停止尝试
+                                clearInterval(tryInterval);
+                            }
+                        }, 10);
+                        
+                        // 30秒后停止尝试
+                        setTimeout(function() {
+                            clearInterval(tryInterval);
+                        }, 30000);
+                        
+                        // 立即尝试
+                        audio.play().catch(function() {});
+                    }
+                }
+            }
+        })();
+    </script>
+
+    <div class="invitation-card">
+        <h2 class="invitation-title">物理与电子工程学院2025级新生迎新晚会暨表彰大会邀请函</h2>
+        
+        <div class="invitation-content">
+            <p class="greeting">尊敬的各位老师：</p>
+            
+            <p class="paragraph">　　您好！</p>
+            
+            <p class="paragraph">　　时光更迭，新岁将至。为迎接2025级新生的到来，我院将举办 "芯火燃星穹，青春绘国潮" 迎新晚会暨表彰大会。在冬日的暖意中，我们诚挚邀请您莅临，与全体师生共同见证本年度的收获与成长。</p>
+            
+            <p class="paragraph">　　活动安排如下：</p>
+            
+            <ul class="activity-list">
+                <li>活动时间：2025 年 12 月 7 日</li>
+                <li>活动地点：四川师范大学成龙校区龙湖剧场</li>
+                <li>举办单位：物理与电子工程学院</li>
+            </ul>
+            
+            <p class="paragraph">　　您的到来，将为晚会增添光彩。期待与您共享这场属于冬日的温暖相聚。</p>
+            
+            <div class="signature">
+                <p class="paragraph signature-greeting">　　此致</p>
+                <p class="paragraph signature-salute">敬礼！</p>
+                <p class="signature-text">
+                    物理与电子工程学院 两委办公室<br>
+                    2025年11月27日
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // script.js 加载后再次强制尝试播放
+        (function() {
+            var activated = sessionStorage.getItem('musicActivated') === 'true';
+            if (activated) {
+                function forcePlay() {
+                    var bgmAudio = document.getElementById('bgmAudio');
+                    if (bgmAudio && bgmAudio.paused) {
+                        bgmAudio.volume = 0.6;
+                        bgmAudio.play().catch(function() {});
+                    }
+                }
+                
+                // 立即尝试
+                forcePlay();
+                
+                // 持续强制尝试（每10ms一次，持续30秒）
+                var forceInterval = setInterval(function() {
+                    forcePlay();
+                }, 10);
+                
+                setTimeout(function() {
+                    clearInterval(forceInterval);
+                }, 30000);
+                
+                // 各种事件触发时也尝试
+                var events = ['DOMContentLoaded', 'load', 'click', 'touchstart', 'mousedown', 'keydown', 'focus', 'pageshow', 'mouseenter', 'pointerdown'];
+                events.forEach(function(eventType) {
+                    if (eventType === 'DOMContentLoaded') {
+                        document.addEventListener('DOMContentLoaded', forcePlay);
+                    } else if (eventType === 'load' || eventType === 'pageshow') {
+                        window.addEventListener(eventType, forcePlay);
+                    } else {
+                        document.addEventListener(eventType, forcePlay);
+                    }
+                });
+                
+                // 页面可见性变化时尝试
+                document.addEventListener('visibilitychange', function() {
+                    if (!document.hidden) {
+                        forcePlay();
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
+
